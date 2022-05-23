@@ -1,0 +1,24 @@
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+@import "~@fontsource/montserrat/300.css";
+@import "~@fontsource/montserrat/400.css";
+@import "~@fontsource/montserrat/700.css";
+
+
+body {
+    font-family: 'montserrat', sans-serif;
+}
+
+img {
+    max-width: 100%;
+}
+
+.app-wrap {
+    width: 100%;
+    height: 100vh;
+}
+
+ul {
+    list-style: none;
+}

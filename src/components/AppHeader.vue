@@ -2,15 +2,22 @@
     <header>
        <h2>boolflix</h2> 
        <div class="searchbar_container">
-           <input placeholder="Cerca film/serie TV" type="text">
-           <button class="search_btn">cerca</button>
+           <input placeholder="Cerca film/serie TV" type="text" v-model="searchedFilm" @keyup.enter="$emit('searchFilmTitle', searchedFilm)">
+           <button class="search_btn" @click="$emit('searchFilmTitle', searchedFilm)">cerca</button>
        </div>
     </header>
 </template>
 
 <script>
+
 export default {
     name: "AppHeader",
+    data: function() {
+        return {
+            searchedFilm: "",
+            
+        };
+    },
 }
 </script>
 

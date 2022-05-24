@@ -4,21 +4,21 @@
       <!-- header -->
       <AppHeader @searchFilmTitle="filmSearched($event)" />
       <!-- films list -->
-      <AppFilmsList :resultedFilms="this.films" />
+      <AppMain :resultedFilms="this.films" />
     </div>
   </div>
 </template>
 
 <script>
 import AppHeader from "./components/AppHeader.vue";
-import AppFilmsList from "./components/AppFilmsList.vue";
+import AppMain from "./components/AppMain.vue";
 import axios from "axios";
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    AppFilmsList,
+    AppMain,
   },
   data: function () {
     return {

@@ -5,7 +5,7 @@
                 <div class="film_card" v-for="film in resultedFilms" :key="film.id">
                     <h3>titolo film: {{ film.title }}</h3>
                     <p>titolo originale: {{ film.original_title}}</p>
-                    <div v-if="film.original_language">Lingua originale: <img :src="`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${film.original_language.toUpperCase()}.svg`" alt="" class="film_language"></div>
+                    <div v-if="countryFlag.includes(film.original_language.toUpperCase())">Lingua originale: <img :src="`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${film.original_language.toUpperCase()}.svg`" alt="" class="film_language"></div>
                     <p v-else>Lingua originale: {{ film.original_language }}</p>
                     <p>voto: {{ film.vote_average }}</p>
                 </div>
@@ -15,11 +15,21 @@
 </template>
 
 <script>
+// import axios from "axios";
 export default {
     name: "AppMain",
     props: {
         resultedFilms: Array,
-    }
+    },
+    data() {
+        return {
+            countryFlag: []
+        }
+    },
+    created() {
+        let countryFlagIcons = require("country-flag-icons");
+        this.countryFlag = countryFlagIcons.countries;
+    },
 }
 </script>
 

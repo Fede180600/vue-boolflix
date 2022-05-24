@@ -3,46 +3,50 @@
         <div class="container">
             <h2>film</h2>
             <div class="row row-cols-3 row-cols-md-4 row-cols-lg-6 justify-content-center align-items-center">
-                <div class="card" v-for="item in resultedFilms" :key="item.id">
-                    <div class="img-container">
-                        <img v-if="item.poster_path" :src="`http://image.tmdb.org/t/p/w300/${item.poster_path}`" alt="">
-                        <p v-else>immagine copertina non disponibile</p>
+                <div class="my_card col" v-for="item in resultedFilms" :key="item.id">
+                    <div class="img_container">
+                        <img v-if="item.poster_path" :src="`http://image.tmdb.org/t/p/w342/${item.poster_path}`" alt="">
+                        <div v-else style="color: white; font-size: 15px; text-align: center; background-color: rgba(0, 0, 0, .2);">copertina non disponibile</div>
                     </div>
-                    <h3>titolo film: {{ item.title }}</h3>
-                    <p>titolo originale: {{ item.original_title }}</p>
-                    <div v-if="countryFlag.includes(item.original_language.toUpperCase())">Lingua originale: <img
-                            :src="`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${item.original_language.toUpperCase()}.svg`"
-                            alt="" class="language"></div>
-                    <p v-else>Lingua originale: {{ item.original_language }}</p>
-                    <p v-if="item.vote_average == 0">voto: {{ item.vote_average }}</p>
-                    <ul v-else class="stars">
-                        Voto:
-                        <li v-for="(star, index) in getStars(item.vote_average)" :key="index">
-                            <span class="fas fa-star"></span>
-                        </li>
-                    </ul>
+                    <div class="card_text">
+                        <h3>titolo film: {{ item.title }}</h3>
+                        <p>titolo originale: {{ item.original_title }}</p>
+                        <div v-if="countryFlag.includes(item.original_language.toUpperCase())">Lingua originale: <img
+                                :src="`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${item.original_language.toUpperCase()}.svg`"
+                                alt="" class="language"></div>
+                        <p v-else>Lingua originale: {{ item.original_language }}</p>
+                        <p v-if="item.vote_average == 0">voto: {{ item.vote_average }}</p>
+                        <ul v-else class="stars">
+                            Voto:
+                            <li v-for="(star, index) in getStars(item.vote_average)" :key="index">
+                                <span class="fas fa-star"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <h2 class="mt-2">serie tv</h2>
             <div class="row row-cols-3 row-cols-md-4 row-cols-lg-6 justify-content-center align-items-center">
-                <div class="card" v-for="item in resultedSeries" :key="item.id">
-                    <div class="img-container">
-                        <img v-if="item.poster_path" :src="`http://image.tmdb.org/t/p/w300/${item.poster_path}`" alt="">
-                        <p v-else>immagine copertina non disponibile</p>
+                <div class="my_card" v-for="item in resultedSeries" :key="item.id">
+                    <div class="img_container" style="position: relative;">
+                        <img v-if="item.poster_path" :src="`http://image.tmdb.org/t/p/w342/${item.poster_path}`" alt="">
+                        <div v-else style="color: white; font-size: 15px; text-align: center; background-color: rgba(0, 0, 0, .2);">copertina non disponibile</div>
                     </div>
-                    <h3>nome serie TV: {{ item.name }}</h3>
-                    <p>nome originale: {{ item.original_name }}</p>
-                    <div v-if="countryFlag.includes(item.original_language.toUpperCase())">Lingua originale: <img
-                            :src="`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${item.original_language.toUpperCase()}.svg`"
-                            alt="" class="language"></div>
-                    <p v-else>Lingua originale: {{ item.original_language }}</p>
-                    <p v-if="item.vote_average == 0">voto: <i class="fas fa-star"></i></p>
-                    <ul v-else class="stars">
-                        Voto:
-                        <li v-for="(star, index) in getStars(item.vote_average)" :key="index">
-                            <span class="fas fa-star"></span>
-                        </li>
-                    </ul>
+                    <div class="card_text">
+                        <h3>nome serie TV: {{ item.name }}</h3>
+                        <p>nome originale: {{ item.original_name }}</p>
+                        <div v-if="countryFlag.includes(item.original_language.toUpperCase())">Lingua originale: <img
+                                :src="`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${item.original_language.toUpperCase()}.svg`"
+                                alt="" class="language"></div>
+                        <p v-else>Lingua originale: {{ item.original_language }}</p>
+                        <p v-if="item.vote_average == 0">voto: <i class="fas fa-star"></i></p>
+                        <ul v-else class="stars">
+                            Voto:
+                            <li v-for="(star, index) in getStars(item.vote_average)" :key="index">
+                                <span class="fas fa-star"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,7 +96,7 @@ export default {
 
 .contents_list_container {
     height: calc(100% - 60px);
-    background-color: #434343;
+    background-color: #1b1b1b;
     overflow-y: auto;
 
     .container>h2 {
@@ -101,33 +105,53 @@ export default {
         text-align: center;
     }
 
-    .card {
-        max-height: 400px;
-        min-height: 400px;
+    .my_card {
+        padding: 0;
+        background-color: #1b1b1b;
+        margin: 2px;
+        min-height: 240px;
         overflow-y: auto;
-        background-color: rgb(165, 165, 165);
-        padding: 10px 5px;
-        border: 1px solid #b20000;
-        margin: 10px 10px;
-
-        .language {
-            width: 15px;
-            height: 10px;
-            object-fit: cover;
+        .img_container {
+            height: 100%;
+            overflow: hidden;
         }
 
-        .stars {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding-left: 0;
-            li {
-                color: orange;
-                margin: 0 2px;
-                font-size: 13px;
+        .card_text {
+            display: none;
+            height: 22vw;
+            max-height: 330px;
+            min-height: 100%;
+            color: white;
+            h3 {
+                text-transform: uppercase;
+                font-size: 14px;
+            }
+            .language {
+                width: 20px;
+                height: 15px;
+                object-fit: cover;
+            }
+
+            .stars {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 0;
+
+                li {
+                    color: orange;
+                    margin: 0 2px;
+                    font-size: 13px;
+                }
             }
         }
-    }
 
+    }
+    .my_card:hover .img_container {
+        display: none;
+    }
+    .my_card:hover .card_text {
+        display: block;
+    }
 }
 </style>

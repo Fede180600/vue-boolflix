@@ -1,6 +1,8 @@
 <template>
     <header>
-        <h2>boolflix</h2>
+        <div class="logo_container">
+            <img src="../assets/img/logo.png" alt="">
+        </div>
         <div class="searchbar_container">
             <input placeholder="Cerca film/serie TV" type="text" v-model="searchedFilm"
                 @keyup.enter="$emit('searchFilmTitle', searchedFilm)">
@@ -33,9 +35,11 @@ header {
     justify-content: space-between;
     align-items: flex-end;
 
-    h2 {
-        text-transform: uppercase;
-        color: #b20000;
+    .logo_container {
+        width: 150px;
+        img {
+            height: 100%;
+        }
     }
 
     .searchbar_container {

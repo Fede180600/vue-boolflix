@@ -57,18 +57,22 @@ export default {
     },
     methods: {
         getStars(vote) {
-
-            vote = Math.round(vote * 2) / 2;
-            let output = [];
-            // Append all the filled whole stars
-            for (var i = vote; i >= 1; i--)
-                output.push('<i class="fas fa-star" aria-hidden="true" style="color: gold;"></i>');
-
-            // Fill the empty stars
-            for (let i = (5 - vote); i >= 1; i--)
-                output.push('<i class="fas fa-star-o" aria-hidden="true" style="color: gold;"></i>');
-
-            return output.join();
+            const voteTransformed = vote / 2;
+            let rating = "";
+            if (voteTransformed >= 0 && voteTransformed <= 1){
+                rating = `<i class="fas fa-star" style="color: orange"></i>`;
+            } else if(voteTransformed >= 1 && voteTransformed <= 2) {
+                rating = `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
+            } else if(voteTransformed >= 2 && voteTransformed <= 3) {
+                rating = `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
+            } else if(voteTransformed >= 3 && voteTransformed <= 4) {
+                rating = `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
+            } else if(voteTransformed >= 4 && voteTransformed <= 5) {
+                rating = `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
+            } else if(voteTransformed >= 5) {
+                rating = `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
+            }
+            return rating;
         }
     },
 }

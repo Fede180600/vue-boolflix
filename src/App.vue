@@ -2,7 +2,7 @@
   <div id="app">
     <div class="app-wrap">
       <!-- header -->
-      <AppHeader @searchFilmTitle="filmSearched($event)" />
+      <AppHeader @searchFilmTitle="contentSearched($event)" />
       <!-- films list -->
       <AppMain :resultedFilms="this.films" :resultedSeries="this.series"/>
     </div>
@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-    filmSearched(title) {
+    contentSearched(title) {
       this.films = [];
       this.stringToSearch = title.toLowerCase();
       axios
@@ -43,6 +43,7 @@ export default {
           this.films.push(film);
         });
       });
+      this.series= [];
       axios
       .get('https://api.themoviedb.org/3/search/tv', {
         params: {
@@ -55,8 +56,8 @@ export default {
           this.series.push(serie);
         })
       })
+      this.stringToSearch = "";
     }
-
   }
 }
 </script>

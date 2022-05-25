@@ -3,7 +3,8 @@
         <div class="container">
             <h2>film</h2>
             <div class="row row-cols-3 row-cols-md-4 row-cols-lg-6 justify-content-center align-items-center">
-                <div class="my_card col" v-for="item in resultedFilms" :key="item.id">
+                <AppCard v-for="item in resultedFilms" :key="item.id" :film="item"/>
+                <!-- <div class="my_card" v-for="item in resultedFilms" :key="item.id">
                     <div class="img_container">
                         <img v-if="item.poster_path" :src="`http://image.tmdb.org/t/p/w342/${item.poster_path}`" alt="">
                         <div v-else style="color: white; font-size: 15px; text-align: center; background-color: rgba(0, 0, 0, .2);">copertina non disponibile</div>
@@ -22,12 +23,15 @@
                                 <span class="fas fa-star"></span>
                             </li>
                         </ul>
+                        <p v-if="item.overview">Overview: <small>{{ item.overview }}</small></p>
+                        <p v-else>Missing overview</p>
                     </div>
-                </div>
+                </div> -->
             </div>
             <h2 class="mt-2">serie tv</h2>
             <div class="row row-cols-3 row-cols-md-4 row-cols-lg-6 justify-content-center align-items-center">
-                <div class="my_card" v-for="item in resultedSeries" :key="item.id">
+                <AppCard v-for="item in resultedSeries" :key="item.id" :serie="item"/>
+                <!-- <div class="my_card" v-for="item in resultedSeries" :key="item.id">
                     <div class="img_container" style="position: relative;">
                         <img v-if="item.poster_path" :src="`http://image.tmdb.org/t/p/w342/${item.poster_path}`" alt="">
                         <div v-else style="color: white; font-size: 15px; text-align: center; background-color: rgba(0, 0, 0, .2);">copertina non disponibile</div>
@@ -46,29 +50,35 @@
                                 <span class="fas fa-star"></span>
                             </li>
                         </ul>
+                        <p v-if="item.overview">Overview: <small>{{ item.overview }}</small></p>
+                        <p v-else>Missing overview</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
 </template>
 
 <script>
+import AppCard from "./AppCard.vue";
 export default {
     name: "AppMain",
+    components: {
+        AppCard
+    },
     props: {
         resultedFilms: Array,
         resultedSeries: Array,
     },
-    data() {
-        return {
-            countryFlag: []
-        }
-    },
-    created() {
-        let countryFlagIcons = require("country-flag-icons");
-        this.countryFlag = countryFlagIcons.countries;
-    },
+    // data() {
+    //     return {
+    //         countryFlag: []
+    //     }
+    // },
+    // created() {
+    //     let countryFlagIcons = require("country-flag-icons");
+    //     this.countryFlag = countryFlagIcons.countries;
+    // },
     methods: {
         getStars(vote) {
             return Math.ceil(vote / 2);
@@ -123,6 +133,10 @@ export default {
             min-height: 100%;
             color: white;
             h3 {
+                text-transform: uppercase;
+                font-size: 14px;
+            }
+            p, ul, div {
                 text-transform: uppercase;
                 font-size: 14px;
             }

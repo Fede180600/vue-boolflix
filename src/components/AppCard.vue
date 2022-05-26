@@ -1,9 +1,7 @@
 <template>
     <div class="my_card">
         <div class="img_container">
-            <img v-if="cardObj.poster_path" :src="`http://image.tmdb.org/t/p/w342/${cardObj.poster_path}`" alt="">
-            <div v-else style="color: white; font-size: 15px; text-align: center; background-color: rgba(0, 0, 0, .2);">
-                copertina non disponibile</div>
+            <img :src="posterUrl" alt="">
         </div>
         <div class="card_text">
             <h3>titolo film: {{ cardObj.title ? cardObj.title : cardObj.name }}</h3>
@@ -57,6 +55,13 @@ export default {
             //     rating += `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
             // }
             // return rating;
+        }
+    },
+    computed: {
+        posterUrl() {
+            return this.cardObj.poster_path
+            ? `http://image.tmdb.org/t/p/w342/${this.cardObj.poster_path}`
+            : require("../assets/img/no-image.jpg")
         }
     },
 }

@@ -4,9 +4,9 @@
             <img src="../assets/img/logo.png" alt="">
         </div>
         <div class="searchbar_container">
-            <input placeholder="Cerca film/serie TV" type="text" v-model="searchedFilm"
-                @keyup.enter="$emit('searchFilmTitle', searchedFilm)">
-            <button class="search_btn" @click="$emit('searchFilmTitle', searchedFilm)"><i
+            <input placeholder="Cerca film/serie TV" type="text" v-model="searchThisString"
+                @keyup.enter="$emit('userSearch', searchThisString)">
+            <button class="search_btn" @click="$emit('userSearch', searchThisString)"><i
                     class="fas fa-search"></i></button>
         </div>
     </header>
@@ -18,7 +18,7 @@ export default {
     name: "AppHeader",
     data: function () {
         return {
-            searchedFilm: "",
+            searchThisString: ""
         };
     },
 }

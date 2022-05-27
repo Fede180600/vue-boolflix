@@ -1,11 +1,12 @@
 <template>
     <div class="my_card">
         <div class="img_container">
-            <img :src="posterUrl" alt="">
+            <img :src="imageUrl" alt="">
         </div>
         <div class="card_text">
-            <h3>titolo film: {{ cardObj.title ? cardObj.title : cardObj.name }}</h3>
-            <p>titolo originale: {{ cardObj.original_title ? cardObj.original_title : cardObj.original_name }}</p>
+            <h3>{{ getCardTitle }}</h3>
+            <p v-if="cardObj.title">Titolo Originale: {{ getCardSecondTitle }}</p>
+            <p v-else>Nome Originale: {{ getCardSecondTitle }}</p>
             <div v-if="countryFlag.includes(cardObj.original_language.toUpperCase())">Lingua originale: <img
                     :src="`https://catamphetamine.gitlab.io/country-flag-icons/3x2/${cardObj.original_language.toUpperCase()}.svg`"
                     alt="" class="language"></div>
@@ -40,29 +41,20 @@ export default {
     methods: {
         getStars(vote) {
             return Math.ceil(vote / 2);
-            // let rating = "";
-            // if (voteTransformed >= 0 && voteTransformed <= 1){
-            //     rating += `<i class="fas fa-star" style="color: orange"></i>`;
-            // } else if(voteTransformed >= 1 && voteTransformed <= 2) {
-            //     rating += `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
-            // } else if(voteTransformed >= 2 && voteTransformed <= 3) {
-            //     rating += `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
-            // } else if(voteTransformed >= 3 && voteTransformed <= 4) {
-            //     rating += `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
-            // } else if(voteTransformed >= 4 && voteTransformed <= 5) {
-            //     rating += `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
-            // } else if(voteTransformed >= 5) {
-            //     rating += `<i class="fas fa-star" style="color: orange"</i><i class="fas fa-star" style="color: orange"></i>`;
-            // }
-            // return rating;
         }
     },
     computed: {
-        posterUrl() {
+        imageUrl() {
             return this.cardObj.poster_path
             ? `http://image.tmdb.org/t/p/w342/${this.cardObj.poster_path}`
             : require("../assets/img/no-image.jpg")
-        }
+        },
+        getCardTitle() {
+            return this.cardObj.title ? this.cardObj.title : this.cardObj.name;
+        },
+        getCardSecondTitle() {
+            return this.cardObj.original_title ? this.cardObj.original_title : this.cardObj.original_name;
+        },
     },
 }
 </script>
@@ -85,17 +77,16 @@ export default {
         max-height: 330px;
         min-height: 100%;
         color: white;
+        text-transform: uppercase;
+        font-size: 14px;
 
         h3 {
             text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        p,
-        ul,
-        div {
-            text-transform: uppercase;
-            font-size: 14px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            margin: 5px 0;
+            color: #db202c;
         }
 
         .language {

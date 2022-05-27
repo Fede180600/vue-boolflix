@@ -2,7 +2,7 @@
   <div id="app">
     <div class="app-wrap">
       <!-- header -->
-      <AppHeader @searchFilmTitle="contentSearched($event)" />
+      <AppHeader @userSearch="search($event)" />
       <!-- films list -->
       <AppMain :resultedFilms="this.films" :resultedSeries="this.series"/>
     </div>
@@ -24,42 +24,28 @@ export default {
     return {
       films: [],
       series: [],
-      stringToSearch: "",
+      apiKey: "7c8de487b8a14f4c4fd050c515a00d5e",
     };
   },
   methods: {
-    contentSearched(title) {
-      this.films = [];
-      this.stringToSearch = title.toLowerCase();
-      axios
-      .get('https://api.themoviedb.org/3/search/movie', {
+    search(searchThisString) {
+      const options = {
         params: {
-          api_key: "7c8de487b8a14f4c4fd050c515a00d5e",
-          query: this.stringToSearch,
+          api_key: this.apiKey,
+          query: searchThisString 
         }
-      })
-      .then((resp) => {
-        resp.data.results.forEach(film => {
-          this.films.push(film);
-        });
+      };
+
+      const filmsReq = axios.get('https://api.themoviedb.org/3/search/movie', options);
+      const seriesReq = axios.get('https://api.themoviedb.org/3/search/tv', options);
+
+      axios.all([filmsReq, seriesReq]).then(resp => {
+        this.films = resp[0].data.results;
+        this.series = resp[1].data.results;
       });
-      this.series= [];
-      axios
-      .get('https://api.themoviedb.org/3/search/tv', {
-        params: {
-          api_key: "7c8de487b8a14f4c4fd050c515a00d5e",
-          query: this.stringToSearch,
-        }
-      })
-      .then((resp) => {
-        resp.data.results.forEach(serie => {
-          this.series.push(serie);
-        })
-      })
-      this.stringToSearch = "";
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
